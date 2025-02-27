@@ -13,9 +13,24 @@ from streamlit_chat_widget import chat_input_widget
 from typing_extensions import Annotated, TypedDict
 from typing import Sequence
 
+from models import UserSchema, MessageSchema
+from dbase import users_collection, messages_collection
+
 # Initialize API Key
 GROQ_API_KEY = st.secrets['GROQ_API_KEY']
 client = groq.Client(api_key=GROQ_API_KEY)
+
+# Database Functions
+def add_user(username, email):
+    user = UserSchema(username=username, email=email)
+    users_collection.insert_one(user.dict())
+
+
+def save_message(user_id, session_id, message, response):
+    chat_entry = MessageSchema(user_id=user_id, session_id=session_id, message=message, response=response)
+    messages_collection.insert_one(chat_entry.dict())
+
+
 
 # Set up Streamlit app
 st.set_page_config(page_title="Gamma-o1-chatBot", page_icon="🤖")
@@ -39,6 +54,11 @@ config = {"configurable": {"thread_id": st.session_state.thread_id}}
 if not st.session_state["user_id"]:
     username = st.text_input("Enter your username to start:")
     if username:
+        # Check if user exists in the database
+        user = users_collection.find_one({"username": username})
+        if not user:
+            # Add user to the database if not found
+            add_user(username, f"{username}@email.com")  # Add a dummy email or ask for it
         st.session_state["user_id"] = username
         st.rerun()
 
@@ -169,7 +189,10 @@ if st.session_state.get("user_id"):
     if query:
         st.session_state.messages.append({'role': 'user', 'content': query})
         st.chat_message('user').markdown(query)
+
+        
             
+        #process model output
         output = app.invoke(input={
             'messages': st.session_state.messages,
             'character': selected_character,
@@ -180,5 +203,10 @@ if st.session_state.get("user_id"):
         if current_output:
             st.session_state.messages.append({'role': 'assistant', 'content': current_output})
             st.chat_message('assistant').markdown(current_output)
+
+            # Save user message to the database
+            user_id = st.session_state["user_id"]
+            session_id = st.session_state["thread_id"]  # Unique session ID
+            save_message(user_id, session_id, query, current_output)  # Store user message without response yet
         else:
             st.error('Something went wrong! Please try again.')
