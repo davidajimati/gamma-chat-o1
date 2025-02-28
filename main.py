@@ -26,8 +26,11 @@ OPENAI_API_KEY = st.secrets['OPENAI_API_KEY']
 
 
 # Database Functions
-def add_user(username, email):
-    user = UserSchema(username=username, email=email)
+def add_user(username):
+    username = username.strip()
+    print(username)
+    # user = UserSchema(username=username, email=email)
+    user = UserSchema(username=username)
     users_collection.insert_one(user.dict())
 
 
@@ -109,11 +112,14 @@ config = {"configurable": {"thread_id": st.session_state.thread_id}}
 if not st.session_state["user_id"]:
     username = st.text_input("Enter your username to start:")
     if username:
+        # username = username.strip()
+        username = username.replace(" ", "")  # Remove spaces
         # Check if user exists in the database
         user = users_collection.find_one({"username": username})
         if not user:
             # Add user to the database if not found
-            add_user(username, f"{username}@email.com")  # A dummy email to simulate its existence
+            # add_user(username, f"{username}@email.com")  # A dummy email to simulate its existence
+            add_user(username) 
         st.session_state["user_id"] = username
         st.rerun()
 
