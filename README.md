@@ -115,18 +115,14 @@ This chatbot uses Groq API for generating responses and Whisper API for speech-t
 
 ## 👥 Project Team & Responsibilities
 
-- **@David Ajimati** - Project setup and Initialization
-- **@Abiodun Odukaye** - Database and message persistence
-- **@Uche Madu & @Paul Obiahu** - Integrate Groq with LangChain
-- **@Uche Madu & @David Ajimati** - Implement Character Selection
-- **@David Edoh & @Esther Timothy** - Integrate chatbot into Streamlit app
-- **@Paul Obiahu and @Abiodun Odukaye** - Deploy and test chatbot
-- **@Augustine Chibueze** - documentation report
+- **@ [David Ajimati](https://github.com/davidajimati)** - Project setup and Initialization
+- **@[Abiodun Odukaye](https://github.com/Xloanx)** - Database and message persistence
+- **@[Uche Madu](https://github.com/uche-madu) & @Paul Obiahu** - Integrate Groq with LangChain
+- **@[Uche Madu](https://github.com/uche-madu) & @David Ajimati** - Implement Character Selection
+- **@David Edoh & @[Esther Timothy](https://github.com/empty-codes)** - Integrate chatbot into Streamlit app
+- **@[Paul Obiahu](https://github.com/Data4i) and @[Abiodun Odukaye](https://github.com/Xloanx)** - Deploy and test chatbot
+- **@[Augustine Chibueze](https://github.com/austinLorenzMccoy)** - documentation report
 
 ---
 
 💡 Feel free to contribute, suggest features, or report issues!
-
-
-README.md
-5 KB
