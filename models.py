@@ -1,11 +1,11 @@
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, constr
 from datetime import datetime
 
 # User
 class UserSchema(BaseModel):
     # id: str | None = None  # MongoDB _id (string)
-    username: str
-    email: EmailStr
+    username: constr(strip_whitespace=True, min_length=1)
+    # email: EmailStr
     created_at: datetime = datetime.utcnow()
 
     class Config:
