@@ -122,6 +122,7 @@ This chatbot uses Groq API for generating responses and Whisper API for speech-t
 - **@David Edoh & @[Esther Timothy](https://github.com/empty-codes)** - Integrate chatbot into Streamlit app
 - **@[Paul Obiahu](https://github.com/Data4i) and @[Abiodun Odukaye](https://github.com/Xloanx)** - Deploy and test chatbot
 - **@[Augustine Chibueze](https://github.com/austinLorenzMccoy)** - documentation report
+- **@[tephen Ogundero](https://github.com/Stephen-OG)** - Presentation
 
 ---
 
